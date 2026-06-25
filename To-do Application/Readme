@@ -1,1 +1,160 @@
+# To-Do App
+
+A simple Flask-based To-Do application that allows users to register, log in, and manage their own personal tasks.
+
+## About the Project
+
+This project was built using Flask, Flask-WTF, and Flask-SQLAlchemy. It uses a SQLite database to store user accounts and their tasks. Each user has their own task list, so tasks created by one user are not visible to others.
+
+The application includes session-based authentication and securely stores user passwords using password hashing provided by Werkzeug. Plain-text passwords are never stored in the database.
+
+## Features
+
+* User registration with username and password
+* Secure password hashing using Werkzeug
+* Secure login and logout using Flask sessions
+* Separate task list for every registered user
+* Add new tasks
+* View personal tasks
+* Update task status (Pending → In Progress → Completed)
+* Clear all tasks for the logged-in user
+* Flash messages to notify users about successful actions or errors
+* Simple and responsive interface built with HTML, CSS, and JavaScript
+
+## Database Models
+
+### Credential
+
+Stores user account information:
+
+* `id`
+* `username`
+* `hashed_password`
+
+### Task
+
+Stores task information:
+
+* `id`
+* `title`
+* `status`
+* `user_id` (links each task to its owner)
+
+## Available Routes
+
+| Route                     | Description                             |
+| ------------------------- | --------------------------------------- |
+| `/`                       | User registration page                  |
+| `/login`                  | User login page                         |
+| `/logout`                 | Logout the current user                 |
+| `/tasks/task`             | Display tasks for the logged-in user    |
+| `/tasks/add`              | Add a new task                          |
+| `/tasks/toggle/<task_id>` | Change task status                      |
+| `/tasks/clear`            | Delete all tasks for the logged-in user |
+
+## Form Validation
+
+The project uses Flask-WTF for form handling and validation. The registration and login forms validate:
+
+* Username
+* Password
+* CSRF protection for submitted forms
+
+## Security
+
+* Passwords are hashed using `werkzeug.security.generate_password_hash()`.
+* User login is verified using `werkzeug.security.check_password_hash()`.
+* Plain-text passwords are not stored in the database.
+* Flask sessions are used to keep users authenticated after login.
+* CSRF protection is enabled through Flask-WTF forms.
+
+## Technologies Used
+
+* Python
+* Flask
+* Flask-WTF
+* Flask-SQLAlchemy
+* SQLite
+* Werkzeug Security
+* HTML
+* CSS
+* JavaScript
+
+## How to Run the Project
+
+### 1. Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+### 2. Activate the virtual environment
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+### 3. Install the required packages
+
+```bash
+pip install Flask Flask-WTF Flask-SQLAlchemy
+```
+
+### 4. Create the database
+
+```python
+from app import create_app, db
+
+app = create_app()
+
+with app.app_context():
+    db.create_all()
+```
+
+### 5. Run the application
+
+```bash
+python run.py
+```
+
+or
+
+```bash
+flask run
+```
+
+## Future Improvements
+
+Some features that can be added in future versions include:
+
+* Email verification
+* Password reset functionality
+* User profile management
+* Task due dates and priorities
+* Search and filtering options
+* Dark mode
+* Flask-Migrate for database migrations
+
+## Project Structure
+
+```text
+run.py
+app/
+│── __init__.py
+│── models.py
+│── routes/
+│   ├── auth.py
+│   ├── tasks.py
+│   └── form.py
+│── templates/
+│── static/
+│   ├── css/
+│   └── js/
+```
+
+## Note
+
+This project was created for learning purposes to practice Flask development, secure user authentication, password hashing, SQLAlchemy relationships, and CRUD operations.
 

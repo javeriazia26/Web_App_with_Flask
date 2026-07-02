@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} To-Do App {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>To-Do App</h1>
+            <nav>
+                <a href="{{ url_for('tasks.view_tasks') }}">Home</a>
+                {% if 'user_id' in session %}
+                <a href="{{ url_for('auth.logout') }}">Logout</a>
+                {% else %}
+                <a href="{{ url_for('auth.login') }}">Login</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
 
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        {% block content %} {% endblock %}
+    </main>
+        
+    <footer>
+        <div class="container">
+            <p> &copy; 2026 To-Do App. All rights reserved.</p>
+        </div>
+    </footer>
+    
+</body> 
+</html>

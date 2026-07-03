@@ -34,7 +34,7 @@ def register():
         session["user_id"] = user.id
         flash("Registered successfully", 'success')
         return redirect(url_for('tasks.view_tasks'))
-    return render_template('register.html', form=form)    
+    return render_template('index.html', form=form)    
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():

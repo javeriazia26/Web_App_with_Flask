@@ -51,6 +51,7 @@ def login():
         else:
             flash('Login Failed', 'failure')
             flash('Invalid Username or Password', 'failure')
+            return redirect(url_for('auth.login'))
 
     return render_template('login.html', form=form)
 

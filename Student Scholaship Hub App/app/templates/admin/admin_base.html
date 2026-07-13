@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Student Scholarhip Hub Admin{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
 
+    <div class="layout">
+
+
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                <div class="logo-icon">S</div>
+                <div>
+                    <div class="logo-title">ScholarHub</div>
+                    <div class="logo-sub">Admin Portal</div>
+                </div>
+            </div>
+
+            <div class="sidebar-section-label">MANAGEMENT</div>
+
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('dash.admin_dash') }}"
+                   class="nav-link {% if request.endpoint == 'dash.admin_dash' %}active{% endif %}">
+                    <span class="nav-icon">&#9783;</span> Dashboard
+                </a>
+
+                <a href="{{ url_for('scholarship.scholar') }}"
+                   class="nav-link {% if request.endpoint == 'scholarship.scholar' %}active{% endif %}">
+                    <span class="nav-icon">&#127891;</span> Scholarships
+                </a>
+
+                <a href="{{ url_for('student.std') }}"
+                   class="nav-link {% if request.endpoint == 'student.std' %}active{% endif %}">
+                    <span class="nav-icon">&#128100;</span> Students
+                </a>
+
+                <a href="{{ url_for('fund_src.fund_src') }}"
+                   class="nav-link {% if request.endpoint == 'fund_src.fund_src' %}active{% endif %}">
+                    <span class="nav-icon">&#128176;</span> Funding Sources
+                </a>
+
+                <a href="{{ url_for('department.depart') }}"
+                   class="nav-link {% if request.endpoint == 'department.depart' %}active{% endif %}">
+                    <span class="nav-icon">&#127970;</span> Departments
+                </a>
+
+                <a href="{{ url_for('university.uni') }}"
+                   class="nav-link {% if request.endpoint == 'university.uni' %}active{% endif %}">
+                    <span class="nav-icon">&#127979;</span> Universities
+                </a>
+
+                <a href="{{ url_for('result.result') }}"
+                   class="nav-link {% if request.endpoint == 'result.result' %}active{% endif %}">
+                    <span class="nav-icon">&#128203;</span> Results
+                </a>
+
+                <a href="{{ url_for('audit_log.audit_log') }}"
+                   class="nav-link {% if request.endpoint == 'audit_log.audit_log' %}active{% endif %}">
+                    <span class="nav-icon">&#128221;</span> Audit Logs
+                </a>
+            </nav>
+
+            <!-- Bottom links -->
+            <div class="sidebar-bottom">
+                <a href="{{ url_for('auth.logout') }}" class="nav-link">
+                    <span class="nav-icon">&#8594;</span> Sign Out
+                </a>
+            </div>
+
+        </aside>
+
+
+        <div class="main-wrapper">
+
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    {% block page_title %}{% endblock %}
+                </div>
+                <div class="topbar-right">
+                    <div class="admin-badge">Admin</div>
+                </div>
+            </header>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endwith %}
+
+            <!-- Page Content -->
+            <main class="page-content">
+                {% block content %}{% endblock %}
+            </main>
+
+        </div>
+        
+    </div>
+
+</body>
+</html>

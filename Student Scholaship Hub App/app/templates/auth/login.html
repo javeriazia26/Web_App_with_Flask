@@ -1,1 +1,29 @@
+{% extends "auth/base.html" %}
+{% block title %} Login {% endblock  %}
+{% block content %}
+<div class = "login-box">
+    <form method="post" action="{{url_for('auth.login')}}">
+        {{form.hidden_tag()}}
 
+        <div class = "form-group">
+            {{form.email.label}}
+            {{form.email(size = 20)}}
+            {% for error in form.email.errors %}
+            <span> {{error}} </span>
+            {% endfor %}            
+        </div>
+
+        <div class = "form-group">
+            {{form.password.label}}
+            {{form.password(size = 20)}}
+            {% for error in form.password.errors %}
+            <span> {{error}} </span>
+            {% endfor %}            
+        </div>
+        <p>
+            {{ form.submit(class='btn') }}
+        </p>
+        <p>Don't have an account? <a href = "{{ url_for('auth.register') }}"> Register here</a></p>
+    </form>
+</div>
+{% endblock %}

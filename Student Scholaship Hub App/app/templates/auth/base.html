@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} Scholarhsip Portal {% endblock %}
+    </title>
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+</head>
+<body>
+    <header> 
+        <div class = "container">
+            <span>
+                <img src="{{ url_for('static', filename='image/image.png') }}" alt="logo" class="auth-logo">
+            </span>
+            <h1>University Scholarship Hub</h1>
+        </div>
+    </header>
+
+    <main class = "container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="flash {{category}}">{{message}}</div> 
+            {% endfor %}
+        {% endwith %}
+
+        {% block content %} {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>
+                &copy; 2026 University Scholarship Hub. All rights reserved. 
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

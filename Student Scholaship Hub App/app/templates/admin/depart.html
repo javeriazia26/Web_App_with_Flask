@@ -1,0 +1,87 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Departments{% endblock %}
+
+{% block page_title %}
+    <h1>Departments</h1>
+    <p>{{ departments|length }} Departments</p>
+{% endblock %}
+
+{% block content %}
+
+<section>
+    {% if editing_department %}
+        <h2>Edit Departments</h2>
+        <form method="POST" action="{{ url_for('department.edit_depart', d_id=editing_department.d_id) }}">
+    {% else %}
+        <h2>Add Departments</h2>
+        <form method="POST" action="{{ url_for('department.add_depart') }}">
+    {% endif %}
+
+        <label>Department Name</label><br>
+        <input type="text" name="d_name"
+               value="{{ editing_department.d_name if editing_department else '' }}" required><br><br>
+
+        <label>Campus Name</label><br>
+        <input type="text" name="c_name"
+               value="{{ editing_department.c_name if editing_department else '' }}"><br><br>
+
+        <label>University id</label><br>
+        <select name="uni_id" required>
+            <option value="">Select university</option>
+            {% for u in universities %}
+            <option value="{{ u.uni_id }}"
+            {% if editing_department and editing_department.uni_id == u.uni_id %}selected{% endif %}>
+            {{ u.uni_name }} ({{ u.c_name }})
+            </option>
+            {% endfor %}
+        </select>
+        
+
+        {% if editing_department %}
+            <button type="submit">Update Departments</button>
+            <a href="{{ url_for('department.depart') }}">Cancel</a>
+        {% else %}
+            <button type="submit">Save Department</button>
+        {% endif %}
+
+    </form>
+</section>
+
+
+<section>
+    <h2>All Departments</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Department Name</th>
+                <th>Campus Name</th>
+                <th>University id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in departments %}
+            <tr>
+                <td>{{ d.d_name }}</td>
+                <td>{{ d.c_name }}</td>
+                <td>{{ d.university.uni_name }}</td>
+                <td>
+                    <a href="{{ url_for('department.depart') }}?edit={{ d.d_id }}">Edit</a>
+
+                    <form method="POST" action="{{ url_for('department.delete_depart', d_id=d.d_id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No Department found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}

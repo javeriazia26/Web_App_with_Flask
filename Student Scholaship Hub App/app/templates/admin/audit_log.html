@@ -1,1 +1,39 @@
+{% extends "admin/admin_base.html" %}
 
+{% block title %}Audit Logs{% endblock %}
+
+{% block page_title %}
+    <h1>Audit Logs</h1>
+    <p>{{ audit_logs|length }} Audit Logs</p>
+{% endblock %}
+
+ {% block content %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Username</th>
+                    <th>Entity</th>
+                    <th>Action</th>                  
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+                {% for al in audit_logs %}
+                <tr>
+                    <td>{{ al.date }}</td>
+                    <td>{{ al.time }}</td>
+                    <td>{{ al.username }}</td>
+                    <td>{{ al.entity }}</td>
+                    <td>{{ al.action }}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+ 
+ {% endblock%}

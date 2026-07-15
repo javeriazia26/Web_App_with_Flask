@@ -1,0 +1,91 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Funding Sources{% endblock %}
+
+{% block page_title %}
+    <h1>Funding Sources</h1>
+    <p>{{ funding_sources|length }} total sources</p>
+{% endblock %}
+
+{% block content %}
+
+<section>
+    {% if editing_fund_src %}
+        <h2>Edit Funding Source</h2>
+        <form method="POST" action="{{ url_for('fund_src.edit_fund_src', f_source_id=editing_fund_src.f_source_id) }}">
+    {% else %}
+        <h2>Add Funding Source</h2>
+        <form method="POST" action="{{ url_for('fund_src.add_fund_src') }}">
+    {% endif %}
+
+        <label>Source Name</label><br>
+        <input type="text" name="source_name"
+               value="{{ editing_fund_src.source_name if editing_fund_src else '' }}" required><br><br>
+
+        <label>Phone Number</label><br>
+        <input type="text" name="phone_no"
+               value="{{ editing_fund_src.phone_no if editing_fund_src else '' }}"><br><br>
+
+        <label>Email</label><br>
+        <input type="email" name="email_id"
+               value="{{ editing_fund_src.email_id if editing_fund_src else '' }}"><br><br>
+
+        <label>Type</label><br>
+        <select name="type" required>
+            <option value="">Select type</option>
+            <option value="Government" {% if editing_fund_src and editing_fund_src.type == 'Government' %}selected{% endif %}>Government</option>
+            <option value="Private" {% if editing_fund_src and editing_fund_src.type == 'Private' %}selected{% endif %}>Private</option>
+            <option value="NGO" {% if editing_fund_src and editing_fund_src.type == 'NGO' %}selected{% endif %}>NGO</option>
+            <option value="Individual" {% if editing_fund_src and editing_fund_src.type == 'Individual' %}selected{% endif %}>Individual</option>
+        </select><br><br>
+
+        {% if editing_fund_src %}
+            <button type="submit">Update Funding Source</button>
+            <a href="{{ url_for('fund_src.fund_src') }}">Cancel</a>
+        {% else %}
+            <button type="submit">Save Funding Source</button>
+        {% endif %}
+
+    </form>
+</section>
+
+
+<section>
+    <h2>All Funding Sources</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Source Id</th>
+                <th>Source Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fs in funding_sources %}
+            <tr>
+                <td>{{ fs.source_name }}</td>
+                <td>{{ fs.phone_no }}</td>
+                <td>{{ fs.email_id }}</td>
+                <td>{{ fs.type }}</td>
+                <td>
+                    <a href="{{ url_for('fund_src.fund_src') }}?edit={{ fs.f_source_id }}">Edit</a>
+
+                    <form method="POST" action="{{ url_for('fund_src.delete_fund_src', f_source_id=fs.f_source_id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">No funding sources found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}

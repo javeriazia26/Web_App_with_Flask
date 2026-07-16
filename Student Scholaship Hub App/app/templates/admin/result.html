@@ -1,0 +1,88 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Results{% endblock %}
+
+{% block page_title %}
+    <h1>Results</h1>
+    <p>{{ results|length }} total records</p>
+{% endblock %}
+
+{% block content %}
+
+<section>
+    {% if editing_result %}
+        <h2>Edit Result</h2>
+        <form method="POST" action="{{ url_for('result.edit_result', r_id=editing_result.r_id) }}">
+    {% else %}
+        <h2>Add Result</h2>
+        <form method="POST" action="{{ url_for('result.add_result') }}">
+    {% endif %}
+
+        <label>Student</label><br>
+        <select name="std_id" required>
+            <option value="">Select student</option>
+            {% for st in students %}
+                <option value="{{ st.std_id }}"
+                    {% if editing_result and editing_result.std_id == st.std_id %}selected{% endif %}>
+                    {{ st.std_id }}  {{ st.first_name }} {{ st.last_name }} 
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Semester</label><br>
+        <input type="number" name="semester"
+               value="{{ editing_result.semester if editing_result else '' }}" required><br><br>
+
+        <label>CGPA</label><br>
+        <input type="number" step="0.01" name="cgpa"
+               value="{{ editing_result.cgpa if editing_result else '' }}" required><br><br>
+
+        {% if editing_result %}
+            <button type="submit">Update Result</button>
+            <a href="{{ url_for('result.result') }}">Cancel</a>
+        {% else %}
+            <button type="submit">Save Result</button>
+        {% endif %}
+
+    </form>
+</section>
+
+
+<section>
+    <h2>All Results</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Result Id</th>
+                <th>Student Name</th>
+                <th>Semester</th>
+                <th>CGPA</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in results %}
+            <tr>
+                <td>{{ r.r_id }}</td>
+                <td>{{ r.student.first_name }} {{ r.student.last_name }}</td>
+                <td>{{ r.semester }}</td>
+                <td>{{ r.cgpa }}</td>
+                <td>
+                    <a href="{{ url_for('result.result') }}?edit={{ r.r_id }}">Edit</a>
+
+                    <form method="POST" action="{{ url_for('result.delete_result', r_id=r.r_id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4">No results found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}

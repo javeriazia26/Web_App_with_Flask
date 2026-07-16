@@ -1,1 +1,114 @@
+{% extends "admin/admin_base.html" %}
 
+{% block title %}Scholarships{% endblock %}
+
+{% block page_title %}
+    <h1>Scholarships</h1>
+    <p>{{ scholarships|length }} total programs</p>
+{% endblock %}
+
+{% block content %}
+
+<section>
+    {% if editing_scholarship %}
+        <h2>Edit Scholarship</h2>
+        <form method="POST" action="{{ url_for('scholarship.edit_scholarship', s_id=editing_scholarship.s_id) }}">
+    {% else %}
+        <h2>Add Scholarship</h2>
+        <form method="POST" action="{{ url_for('scholarship.add_scholar') }}">
+    {% endif %}
+
+        <label>Scholarship Name</label><br>
+        <select name="s_name" required>
+            <option value="">Select name</option>
+            <option value="Merit-Base" {% if editing_scholarship and editing_scholarship.fund_type == 'Merit-Base' %}selected{% endif %}>Merit-Base</option>
+            <option value="Need-Base" {% if editing_scholarship and editing_scholarship.fund_type == 'Need-Based' %}selected{% endif %}>Need-Based</option>
+            <option value="Talent-Base" {% if editing_scholarship and editing_scholarship.fund_type == 'Talent-Base' %}selected{% endif %}>Talent-Base</option>
+            <option value="Research-Base" {% if editing_scholarship and editing_scholarship.fund_type == 'Research-Base' %}selected{% endif %}>Researcg-Base</option>
+        </select><br><br>
+
+        <label>Total Amount</label><br>
+        <input type="number" name="total_amount"
+               value="{{ editing_scholarship.total_amount if editing_scholarship else '' }}" required><br><br>
+
+        <label>Fund Type</label><br>
+        <select name="fund_type" required>
+            <option value="">Select type</option>
+            <option value="Year-Wise" {% if editing_scholarship and editing_scholarship.fund_type == 'Year-Wise' %}selected{% endif %}>Year-Wise</option>
+            <option value="Semester-Wise" {% if editing_scholarship and editing_scholarship.fund_type == 'Year-Wise' %}selected{% endif %}>Semester-Wise</option>
+        </select><br><br>
+
+        <label>Start Date</label><br>
+        <input type="date" name="start_date"
+               value="{{ editing_scholarship.start_date if editing_scholarship else '' }}" required><br><br>
+
+        <label>End Date</label><br>
+        <input type="date" name="end_date"
+               value="{{ editing_scholarship.end_date if editing_scholarship else '' }}"><br><br>
+
+        <label>Funding Source</label><br>
+        <select name="f_source_id" required>
+            <option value="">Select funding source</option>
+            {% for fs in funding_sources %}
+                <option value="{{ fs.f_source_id }}"
+                    {% if editing_scholarship and editing_scholarship.f_source_id == fs.f_source_id %}selected{% endif %}>
+                    {{ fs.source_name }}
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        {% if editing_scholarship %}
+            <button type="submit">Update Scholarship</button>
+            <a href="{{ url_for('scholarship.scholar') }}">Cancel</a>
+        {% else %}
+            <button type="submit">Save Scholarship</button>
+        {% endif %}
+
+    </form>
+</section>
+
+
+<section>
+    <h2>All Scholarships</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Scholarship Id</th>
+                <th>Scholarship Name</th>
+                <th>Fund Type</th>
+                <th>Total Amount</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Funding Source</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in scholarships %}
+            <tr>
+                <td>{{ s.s_id }}</td>
+                <td>{{ s.s_name }}</td>
+                <td>{{ s.fund_type }}</td>
+                <td>{{ s.total_amount }}</td>
+                <td>{{ s.start_date }}</td>
+                <td>{{ s.end_date }}</td>
+                <td>{{ s.funding_source.source_name }}</td>
+                <td>
+                    <a href="{{ url_for('scholarship.scholar') }}?edit={{ s.s_id }}">Edit</a>
+
+                    <form method="POST" action="{{ url_for('scholarship.delete_scholarship', s_id=s.s_id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7">No scholarships found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}

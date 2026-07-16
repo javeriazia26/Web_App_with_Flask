@@ -1,0 +1,133 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Students{% endblock %}
+
+{% block page_title %}
+    <h1>Students</h1>
+    <p>{{ students|length }} total students</p>
+{% endblock %}
+
+{% block content %}
+
+<section>
+    {% if editing_student %}
+        <h2>Edit Student</h2>
+        <form method="POST" action="{{ url_for('student.edit_std', std_id=editing_student.std_id) }}">
+    {% else %}
+        <h2>Add Student</h2>
+        <form method="POST" action="{{ url_for('student.add_std') }}">
+    {% endif %}
+
+        <label>First Name</label><br>
+        <input type="text" name="first_name"
+               value="{{ editing_student.first_name if editing_student else '' }}" required><br><br>
+
+        <label>Last Name</label><br>
+        <input type="text" name="last_name"
+               value="{{ editing_student.last_name if editing_student else '' }}" required><br><br>
+
+        <label>CNIC</label><br>
+        <input type="text" name="cnic"
+               value="{{ editing_student.cnic if editing_student else '' }}" required><br><br>
+
+        <label>Gender</label><br>
+        <select name="gender" required>
+            <option value="">Select gender</option>
+            <option value="Male" {% if editing_student and editing_student.gender == 'Male' %}selected{% endif %}>Male</option>
+            <option value="Female" {% if editing_student and editing_student.gender == 'Female' %}selected{% endif %}>Female</option>
+        </select><br><br>
+
+        <label>Phone Number</label><br>
+        <input type="text" name="std_phone_no"
+               value="{{ editing_student.std_phone_no if editing_student else '' }}"><br><br>
+
+        <label>Program</label><br>
+        <input type="text" name="program"
+               value="{{ editing_student.program if editing_student else '' }}" required><br><br>
+
+        <label>Admission Date</label><br>
+        <input type="date" name="admission_date"
+               value="{{ editing_student.admission_date if editing_student else '' }}"><br><br>
+
+        <label>Semester</label><br>
+        <input type="number" name="semester"
+               value="{{ editing_student.semester if editing_student else '' }}"><br><br>
+
+        <label>Department</label><br>
+        <select name="d_id" required>
+            <option value="">Select department</option>
+            {% for d in departments %}
+                <option value="{{ d.d_id }}"
+                    {% if editing_student and editing_student.d_id == d.d_id %}selected{% endif %}>
+                    {{ d.d_name }} {{ d.c_name }}  
+                </option>
+            {% endfor %}
+        </select><br><br>
+        
+
+        <label>Scholarship </label><br>
+        <select name="s_id" required>
+            <option value="">Select scholarship</option>
+            {% for s in scholarships %}
+                <option value="{{ s.s_id }}"
+                    {% if editing_student and editing_student.s_id == s.s_id %}selected{% endif %}>
+                    {{ s.s_id }} {{ s.s_name }}  
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        {% if editing_student %}
+            <button type="submit">Update Student</button>
+            <a href="{{ url_for('student.std') }}">Cancel</a>
+        {% else %}
+            <button type="submit">Save Student</button>
+        {% endif %}
+
+    </form>
+</section>
+
+
+<section>
+    <h2>All Students</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Student Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Program</th>
+                <th>Department</th>
+                <th>Semester</th>
+                <th>Scholarship</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in students %}
+            <tr>
+                <td>{{ s.std_id }}</td>
+                <td>{{ s.first_name }}</td>
+                <td>{{ s.last_name }}</td>
+                <td>{{ s.program }}</td>
+                <td>{{ s.department.d_name }}</td>
+                <td>{{ s.semester }}</td>
+                <td>{{ s.scholarship.s_name }}</td>
+                <td>
+                    <a href="{{ url_for('student.std') }}?edit={{ s.std_id }}">Edit</a>
+
+                    <form method="POST" action="{{ url_for('student.delete_std', std_id=s.std_id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7">No students found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}

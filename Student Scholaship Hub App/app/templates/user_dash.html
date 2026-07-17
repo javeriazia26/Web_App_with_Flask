@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Dashboard </title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <img src="{{ url_for('static', filename='image/image.png') }}" alt="logo" class="logo-small">
+                <span><b>Student Scholarship Hub</b></span>
+            </div>
+            <div class="nav-right">
+                <span>{{username}}</span>
+                <a href="{{url_for('auth.logout')}}">Logout</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2> Welcome back, {{username}} </h2>
+        </section>
+
+        <section class="results">
+            <div  class="results-header">
+                <h2>Scholarship Results</h2>
+                <form method="GET">
+                    <select name="d_name" id="department">
+                        <option value="">All Departments</option>
+
+                        {% for department in departments %}
+                        <option value="{{ department.d_name }}"
+                        {% if selected_dept == department.d_name %}selected{% endif %}>
+                        {{ department.d_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                    <select name="c_name" id="campus">
+                        <option value="">All Campuses</option>
+
+                        {% for university in universities %}
+                        <option value="{{ university.c_name }}"
+                        {% if selected_campus == university.c_name %}selected{% endif %}>
+                        {{ university.c_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Apply</button>
+                </form>
+
+            </div>
+
+        </section>
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Program</th>
+                    <th>Department Name</th>
+                    <th>Semester</th>
+                    <th>CGPA</th>
+                    <th>Scholarship</th>
+                    <th>Funding Source</th>
+                    <th>Amount</th>                    
+                </tr>
+            </thead>
+
+
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.first_name }}</td>
+                    <td>{{ student.last_name }}</td>
+                    <td>{{ student.program }}</td>
+                    <td>{{ student.department.d_name }}</td>
+                    <td>{{ student.semester }}</td>
+                    <td>{{ student.results[0].cgpa }}</td>
+                    <td>{{ student.scholarship.s_name }}</td>
+                    <td>{{ student.scholarship.funding_source.source_name }}</td>
+                    <td>{{ student.scholarship.total_amount }}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </main>
+    
+</body>
+</html>

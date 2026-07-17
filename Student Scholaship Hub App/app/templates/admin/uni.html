@@ -1,0 +1,87 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}University{% endblock %}
+
+{% block page_title %}
+    <h1>University</h1>
+    <p>{{ university|length }} total campuses</p>
+{% endblock %}
+
+{% block content %}
+
+<section>
+    {% if editing_university %}
+        <h2>Edit University</h2>
+        <form method="POST" action="{{ url_for('university.edit_uni', uni_id=editing_university.uni_id) }}">
+    {% else %}
+        <h2>Add University</h2>
+        <form method="POST" action="{{ url_for('university.add_uni') }}">
+    {% endif %}
+
+        <label>University Name</label><br>
+        <input type="text" name="uni_name"
+               value="{{ editing_university.uni_name if editing_university else '' }}" required><br><br>
+
+        <label>Campus Name</label><br>
+        <input type="text" name="c_name"
+               value="{{ editing_university.c_name if editing_university else '' }}" required><br><br>
+
+        <label>Phone Number</label><br>
+        <input type="text" name="uni_phone_no"
+               value="{{ editing_university.uni_phone_no if editing_university else '' }}" required><br><br>
+
+        <label>Location</label><br>
+        <input type="text" name="uni_location" 
+            value="{{ editing_university.uni_location if editing_university else '' }}" required><br><br>
+
+        {% if editing_university %}
+            <button type="submit">Update University</button>
+            <a href="{{ url_for('university.uni') }}">Cancel</a>
+        {% else %}
+            <button type="submit">Save University</button>
+        {% endif %}
+
+    </form>
+</section>
+
+
+<section>
+    <h2>All University</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>University Id</th>
+                <th>University Name</th>
+                <th>Campus Name</th>
+                <th>Phone Number</th>
+                <th>Location</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in university %}
+            <tr>
+                <td>{{ u.uni_id }}</td>
+                <td>{{ u.uni_name }}</td>
+                <td>{{ u.c_name }}</td>
+                <td>{{ u.uni_phone_no }}</td>
+                <td>{{ u.uni_location }}</td>
+                <td>
+                    <a href="{{ url_for('university.uni') }}?edit={{ u.uni_id }}">Edit</a>
+
+                    <form method="POST" action="{{ url_for('university.delete_uni', uni_id=u.uni_id) }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7">No University found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}

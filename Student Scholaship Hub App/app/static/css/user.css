@@ -1,0 +1,259 @@
+/* Dashboard style for user interface */
+:root {
+    --bg: #f5f7fb;
+    --panel: #ffffff;
+    --panel-soft: #f4f6fb;
+    --text: #242a38;
+    --muted: #6b7280;
+    --primary: #2563eb;
+    --border: #e2e8f0;
+    --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+body {
+    min-height: 100vh;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header nav {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-small {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 6px;
+    border: 1px solid var(--border);
+}
+
+header nav span,
+header nav a {
+    display: inline-flex;
+    align-items: center;
+}
+
+header nav span:first-child {
+    font-size: 0.95rem;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+header nav span:last-child {
+    font-weight: 600;
+    color: var(--text);
+}
+
+header nav a {
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: #f8fafc;
+    color: var(--text);
+}
+
+main {
+    max-width: 1180px;
+    margin: 24px auto 48px;
+    padding: 0 24px;
+}
+
+main section h2 {
+    font-size: clamp(1.7rem, 2vw, 2rem);
+    margin: 0 0 24px;
+}
+
+.results {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+}
+
+.results-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.results-header h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    color: var(--text);
+}
+
+.results-header form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.results-header select,
+.results-header button {
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    padding: 0 16px;
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+.results-header button {
+    cursor: pointer;
+    background: var(--primary);
+    color: #fff;
+    border-color: transparent;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.results-header button:hover {
+    transform: translateY(-1px);
+    background: #1d4ed8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: var(--shadow);
+}
+
+thead {
+    background: #f8fafc;
+}
+
+th, td {
+    text-align: left;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+}
+
+th {
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: #f8fbff;
+}
+
+@media (max-width: 900px) {
+    header nav,
+    main {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .results-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .results-header form {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .results-header select,
+    .results-header button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 680px) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody tr {
+        margin-bottom: 16px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 16px;
+        background: #fff;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 12px;
+        border-bottom: none;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--muted);
+        margin-right: 12px;
+    }
+}

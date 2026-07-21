@@ -1,0 +1,491 @@
+/* =====================================================================
+   admin.css — ScholarHub Admin Portal
+   Targets plain semantic HTML: aside, nav, section, table, form, input
+   ===================================================================== */
+
+:root {
+    --navy:        #16213e;
+    --navy-light:  #1f2d52;
+    --gold:        #d4a548;
+    --bg:          #f3f4f7;
+    --surface:     #ffffff;
+    --border:      #e2e4ea;
+    --text:        #2c2f3a;
+    --text-muted:  #6b7280;
+    --success:     #1f7a4d;
+    --success-bg:  #e7f6ee;
+    --error:       #b3261e;
+    --error-bg:    #fbe9e7;
+    --radius:      10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    font-size: 14.5px;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =====================================================================
+   LAYOUT
+   ===================================================================== */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =====================================================================
+   SIDEBAR
+   ===================================================================== */
+.sidebar {
+    width: 250px;
+    background-color: var(--navy);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 26px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+    background-color: var(--gold);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--navy);
+    flex-shrink: 0;
+}
+
+.logo-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.logo-sub {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 1px;
+}
+
+.sidebar-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 1.2px;
+    padding: 22px 22px 10px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0 14px;
+    gap: 2px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: rgba(255,255,255,0.62);
+    font-size: 13.5px;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.nav-link:hover {
+    background-color: rgba(255,255,255,0.07);
+    color: #fff;
+}
+
+.nav-link.active {
+    background-color: var(--gold);
+    color: var(--navy);
+    font-weight: 600;
+}
+
+.nav-icon {
+    font-size: 15px;
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 14px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* =====================================================================
+   MAIN AREA
+   ===================================================================== */
+.main-wrapper {
+    margin-left: 250px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.topbar {
+    background-color: var(--surface);
+    padding: 18px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.topbar-left h1 {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.topbar-left p {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.admin-badge {
+    background-color: var(--navy);
+    color: #fff;
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+.page-content {
+    padding: 30px;
+    flex: 1;
+}
+
+/* =====================================================================
+   FLASH MESSAGES
+   ===================================================================== */
+.flash {
+    padding: 12px 30px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.flash-error {
+    background-color: var(--error-bg);
+    color: var(--error);
+}
+
+.flash-success {
+    background-color: var(--success-bg);
+    color: var(--success);
+}
+
+/* =====================================================================
+   SECTIONS (the add/edit form block, and the table block)
+   ===================================================================== */
+.page-content section {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 26px;
+    margin-bottom: 24px;
+}
+
+.page-content section h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+/* =====================================================================
+   FORMS
+   ===================================================================== */
+.page-content form label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.page-content form input,
+.page-content form select,
+.page-content form textarea {
+    width: 100%;
+    max-width: 420px;
+    padding: 9px 13px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    background-color: #fafafb;
+    outline: none;
+    transition: border-color 0.15s, background-color 0.15s;
+}
+
+.page-content form input:focus,
+.page-content form select:focus,
+.page-content form textarea:focus {
+    border-color: var(--gold);
+    background-color: #fff;
+}
+
+.page-content form select {
+    cursor: pointer;
+}
+
+.page-content form button[type="submit"] {
+    background-color: var(--navy);
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 7px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.page-content form button[type="submit"]:hover {
+    background-color: var(--navy-light);
+}
+
+.page-content section > form > a {
+    margin-left: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.page-content section > form > a:hover {
+    color: var(--navy);
+}
+
+/* =====================================================================
+   TABLES
+   ===================================================================== */
+.page-content table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.page-content table th {
+    text-align: left;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 11px 14px;
+    border-bottom: 2px solid var(--border);
+    background-color: #fafafb;
+}
+
+.page-content table td {
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+    color: var(--text);
+}
+
+.page-content table tbody tr:hover {
+    background-color: #fafafb;
+}
+
+.page-content table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.page-content table td:last-child {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    white-space: nowrap;
+}
+
+.page-content table td:last-child a {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--navy);
+}
+
+.page-content table td:last-child a:hover {
+    color: var(--gold);
+    text-decoration: underline;
+}
+
+.page-content table td:last-child form {
+    display: inline;
+}
+
+.page-content table td:last-child form button {
+    background: none;
+    border: none;
+    color: var(--error);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+}
+
+.page-content table td:last-child form button:hover {
+    text-decoration: underline;
+}
+
+.page-content table td[colspan] {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 36px;
+    font-size: 13.5px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;   /* Space between Edit and Delete */
+}
+/* =====================================================================
+   DASHBOARD — STATISTICS CARDS
+   ===================================================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.stat-icon-blue   { background-color: #e3edff; }
+.stat-icon-gold   { background-color: #fbf0db; }
+.stat-icon-green  { background-color: var(--success-bg); }
+.stat-icon-purple { background-color: #f0e7fb; }
+
+.stat-value {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.1;
+}
+
+.stat-label {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.view-all-link {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--navy);
+}
+
+.view-all-link:hover {
+    color: var(--gold);
+}
+
+.table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* =====================================================================
+   BADGES
+   ===================================================================== */
+.badge {
+    display: inline-block;
+    padding: 3px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.badge-merit      { background-color: #e3edff; color: #1d4ed8; }
+.badge-need-based { background-color: var(--success-bg); color: var(--success); }
+.badge-government { background-color: #fbf0db; color: #8a6116; }
+.badge-private    { background-color: #f0e7fb; color: #7e22ce; }
+
+.badge-added   { background-color: var(--success-bg); color: var(--success); }
+.badge-updated { background-color: #e3edff; color: #1d4ed8; }
+.badge-deleted { background-color: var(--error-bg); color: var(--error); }
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
+@media (max-width: 1100px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 880px) {
+    .sidebar {
+        width: 210px;
+    }
+    .main-wrapper {
+        margin-left: 210px;
+    }
+    .page-content table {
+        font-size: 12.5px;
+    }
+}

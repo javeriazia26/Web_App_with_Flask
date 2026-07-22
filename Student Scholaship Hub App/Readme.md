@@ -1,255 +1,84 @@
-# ScholarHub - Student Scholarship Portal
+# ScholarHub – Student Scholarship Portal
 
-A Flask-based web application for managing university scholarships, student records, academic results, and funding sources. The system provides separate dashboards for administrators and students, along with role-based access control to ensure secure access to data.
+ScholarHub is a Flask-based web application developed to manage student scholarships, academic records, and administrative operations. The project was built to strengthen backend development skills while implementing authentication, role-based access control, REST APIs, database management, and web application security.
 
-## Project Overview
+The system provides two different user roles:
 
-ScholarHub is designed to simplify scholarship management within a university. Administrators can manage students, scholarships, departments, universities, funding sources, and academic results, while students can log in to view their personal academic and scholarship information.
+- **Student** – Can view scholarship recipients and filter records by university campus and department.
+- **Administrator** – Has full access to manage scholarships, funding sources, universities, departments, students, and academic results through a dedicated admin dashboard.
+
+Every important administrative activity, including login attempts and CRUD operations, is recorded through an audit logging system for better accountability.
+
+---
 
 ## Features
 
-### Administrator
-
-* Secure administrator login
-* Dashboard with system statistics
-* Manage students (Add, Update, Delete)
-* Manage scholarships
-* Manage funding sources
-* Manage departments
-* Manage universities
-* Record and manage student results (CGPA and semester grades)
-* Manage user accounts
-* View audit logs of administrative activities
-
 ### Student
 
-* Secure login
-* View personal profile
-* View scholarship information
-* View academic results
-
-### Security
-
-* Password hashing using Werkzeug
-* Role-Based Access Control (RBAC)
-* Session-based authentication
-* Server-side validation
-* Audit logging for administrative actions
-
----
-
-## Technology Stack
-
-* Python
-* Flask
-* Flask-SQLAlchemy
-* SQLAlchemy ORM
-* SQLite (Development)
-* HTML5
-* CSS3
-* JavaScript
-* Jinja2
-* Werkzeug
-
----
-
-## Project Structure
-
-```text
-Student Scholarship Portal/
-├── app/
-│   ├── __init__.py
-│   ├── models.py
-│   ├── routes/
-│   │   ├── auth.py
-│   │   ├── dash.py
-│   │   ├── login_form.py
-│   │   ├── reg_form.py
-│   │   └── admin/
-│   │       ├── admin.py
-│   │       ├── scholar.py
-│   │       ├── std.py
-│   │       ├── depart.py
-│   │       ├── uni.py
-│   │       ├── fund_src.py
-│   │       ├── result.py
-│   │       └── audit_log.py
-│   ├── static/
-│   │   ├── css/
-│   │   ├── js/
-│   │   └── image/
-│   └── templates/
-│       ├── admin/
-│       ├── auth/
-│       └── user_dash.html
-├── instance/
-├── run.py
-└── README.md
-```
-
----
-
-## Database Models
-
-The application uses the following database models:
-
-* Credential
-* Student
-* Scholarship
-* FundingSource
-* Department
-* University
-* Result
-* AuditLog
-* Token
-
-These models are connected using SQLAlchemy relationships to maintain data integrity and simplify database operations.
-
----
-
-## Installation
-
-### Prerequisites
-
-* Python 3.8 or above
-* pip
-* Virtual environment (recommended)
-
-### Clone the Repository
-
-```bash
-git clone <repository-url>
-cd "Student Scholarship Portal"
-```
-
-### Create a Virtual Environment
-
-Windows
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-Linux/macOS
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Create the Database
-
-```python
-from app import create_app, db
-
-app = create_app()
-
-with app.app_context():
-    db.create_all()
-```
-
-### Run the Application
-
-```bash
-python run.py
-```
-
-The application will be available at:
-
-```
-http://localhost:5000
-```
-
----
-
-## Current Features
-
-* User Authentication
-* Role-Based Access Control
-* CRUD Operations
-* Student Management
-* Scholarship Management
-* Department Management
-* University Management
-* Funding Source Management
-* Academic Result Management
-* Audit Logging
-* Dashboard Statistics
-
----
-
-## Future Improvements
-
-Planned improvements include:
-
-* Search and filtering
-* Email notifications
-* PDF report generation
-* Responsive UI improvements
-* Two-Factor Authentication (2FA)
-* Database migration to MySQL/PostgreSQL
-* Encryption for sensitive student information
-* REST API for third-party integration
-
----
-
-## Project Workflow
+- Register a new account
+- Verify email address
+- Secure login and logout
+- OTP-based password reset
+- Access a personalized dashboard
+- View scholarship recipients
+- Filter scholarship records by campus and department
 
 ### Administrator
 
-1. Login
-2. Access dashboard
-3. Manage system records
-4. View audit logs
-5. Logout
-
-### Student
-
-1. Register/Login
-2. View dashboard
-3. View scholarship details
-4. View academic results
-5. Logout
+- Secure administrator dashboard
+- Manage scholarships
+- Manage funding sources
+- Manage universities
+- Manage departments
+- Manage student records
+- Manage academic results
+- Full Create, Read, Update, and Delete (CRUD) functionality
+- View complete audit logs
 
 ---
 
-## Screenshots
+## Security Features
 
-Screenshots will be added after the user interface is finalized.
+The application currently includes:
+
+- Password hashing
+- Role-Based Access Control (RBAC)
+- Session-based authentication
+- Email verification
+- OTP-based password reset
+- Parameterized SQL queries to reduce SQL injection risks
+- REST API implementation
+- Audit logging for:
+  - User login
+  - Record creation
+  - Record updates
+  - Record deletion
+
+Currently under development:
+
+- Encryption for protecting sensitive application data
+
+## Audit Logging
+
+The application keeps track of important system activities performed by users. Logged events currently include:
+
+- User login
+- Record creation
+- Record updates
+- Record deletion
+
+Each log stores information about the user who performed the action, the affected module, the operation performed, and the timestamp.
 
 ---
 
-## Future Documentation
+## REST API
 
-The following documentation will be added in future versions:
-
-* ER Diagram
-* Database Schema
-* API Documentation
-* Deployment Guide
+The project includes REST APIs for handling application data and supporting backend operations. These APIs are integrated with the application's authentication and database layers to provide secure and structured data access.
 
 ---
 
-## Developer
+## Project Status
 
-**Jaweria Zia**
+The core functionality of ScholarHub has been completed, including authentication, role-based access control, REST APIs, and administrative management features.
 
-BS Computer Science
-
----
-
-## Version
-
-**Version:** 0.1.0
-
-**Status:** In Development
-
-**Last Updated:** June 2026
-
+The final feature currently under development is encryption for protecting sensitive application data.

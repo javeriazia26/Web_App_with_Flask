@@ -69,7 +69,13 @@ Student Scholarship Portal/
 │   │   ├── email_service.py
 │   │   └── otp_service.py
 │   ├── static/
+│   │   ├── css/                 
+│   │   ├── js/                  
+│   │   └── image/               
 │   └── templates/
+│       ├── auth/                
+│       ├── admin/              
+│       └── user_dash.html 
 ├── config.py
 ├── run.py
 ├── requirements.txt

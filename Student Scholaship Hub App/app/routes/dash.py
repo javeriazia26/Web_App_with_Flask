@@ -43,14 +43,19 @@ def user_dash():
         return redirect(url_for('auth.login'))
 
     user = Credential.query.filter_by(id=session['user_id']).first()
-    
-    # for dropdowns
-    all_universities = University.query.all()
-    all_departments  = Department.query.all()
-
+   
     # get filter values from URL
     selected_campus = request.args.get('c_name')
     selected_dept   = request.args.get('d_name')
+     
+    # for dropdowns
+    all_universities = University.query.all()
+    if selected_campus:
+        departments = Department.query.filter_by(c_name=selected_campus).all()
+    else:
+        departments = []
+
+
 
     # build student query with filters
     query = Student.query
@@ -68,7 +73,7 @@ def user_dash():
     return render_template('user_dash.html',
         username=user.username,
         universities=all_universities,
-        departments=all_departments,
+        departments=departments,
         students=students,
         selected_campus=selected_campus,
         selected_dept=selected_dept

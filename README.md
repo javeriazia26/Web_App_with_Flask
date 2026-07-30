@@ -44,6 +44,9 @@ More projects will be added as I continue learning Flask.
 * SQLAlchemy Relationships
 * CRUD Operations
 * Authentication
+* Encryption
+* Rest Api
+* Database Migration
 * Session Management
 * Password Hashing
 * Role-Based Access Control (RBAC)

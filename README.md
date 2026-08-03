@@ -122,7 +122,9 @@ This repository is intended to strengthen practical knowledge of:
 * Database design
 * SQLAlchemy ORM
 * User authentication
-* Secure password storage
+* User Authorization (RBAC)
+* Data Hashing and Encryption
+* REST Api
 * Session handling
 * Backend architecture
 * RESTful application design
@@ -136,8 +138,6 @@ Planned additions include:
 * Expense Tracker
 * Notes Application
 * Library Management System
-* Authentication System with Email Verification
-* REST API Projects
 * Flask Deployment Examples
 
 ## Developer

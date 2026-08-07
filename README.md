@@ -86,7 +86,7 @@ Each project contains its own source code, templates, static files, and project-
 1. Clone the repository.
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/javeriazia26/Web_App_with_Flask>
 ```
 
 2. Navigate to the project you want to run.

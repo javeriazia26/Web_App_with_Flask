@@ -1,4 +1,4 @@
-# ScholarHub – Student Scholarship Portal
+# ScholarHub – Student Scholarship Hub
 
 ScholarHub is a Flask-based web application developed to manage student scholarships, academic records, and administrative operations. The project was built to strengthen backend development skills while implementing authentication, role-based access control, REST APIs, database management, and web application security.
 
@@ -67,6 +67,7 @@ Student Scholarship Portal/
 │   │   └── admin/
 │   ├── services/
 │   │   ├── email_service.py
+│   │   ├── encryption_service.py
 │   │   └── otp_service.py
 │   ├── static/
 │   │   ├── css/                 
@@ -135,7 +136,7 @@ pip install -r requirements.txt
 ```env
 SECRET_KEY=your-secret-key
 DATABASE_URI=sqlite:///instance/scholarship.db
-
+ENCRYPTION_KEY = encryption_key
 MAIL_SERVER=smtp.gmail.com
 MAIL_PORT=587
 MAIL_USERNAME=your-email@gmail.com
@@ -184,6 +185,7 @@ The application currently includes:
 - Session-based authentication
 - Email verification
 - OTP-based password reset
+- Encryption for protecting sensitive application data
 - Parameterized SQL queries to reduce SQL injection risks
 - REST API implementation
 - Audit logging for:
@@ -192,9 +194,6 @@ The application currently includes:
   - Record updates
   - Record deletion
 
-Currently under development:
-
-- Encryption for protecting sensitive application data
 
 ## Audit Logging
 
@@ -217,6 +216,5 @@ The project includes REST APIs for handling application data and supporting back
 
 ## Project Status
 
-The core functionality of ScholarHub has been completed, including authentication, role-based access control, REST APIs, and administrative management features.
+The core functionality of ScholarHub has been completed, including authentication, role-based access control, REST APIs, encryption and administrative management features.
 
-The final feature currently under development is encryption for protecting sensitive application data.
